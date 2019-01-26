@@ -1,17 +1,14 @@
 // Create and Deploy Your First Cloud Functions
 // https://firebase.google.com/docs/functions/write-firebase-functions
-// Ref: https://itnext.io/working-with-firebase-functions-http-request-22fd1ab644d3
-// Ref: https://blog.usejournal.com/build-a-serverless-full-stack-app-using-firebase-cloud-functions-81afe34a64fc
+// Ref: https://firebase.google.com/docs/reference/node/
 
 const functions = require("firebase-functions");
 const cors = require('cors')({ origin: true });
 const admin = require('firebase-admin');
-
 admin.initializeApp();
-
 const database = admin.database().ref('/notes');
 
-const getItemsFromDatabase = (res) => {
+const getItemsFromDatabase = (response) => {
 	//This will return the list of data after it has successfully saved
 	let notes = [];
 	return database.on('value', (snapshot) => {
@@ -22,40 +19,55 @@ const getItemsFromDatabase = (res) => {
 		  notes: note.val().body
 		});
 	  });
-	  res.status(200).json(notes)
+	  response.status(200).json(notes)
 	}, (error) => {
-	  res.status(error.code).json({
+	  response.status(error.code).json({
 		message: 'Something went wrong. Please do not pass ant key/variable with the GET request ${error.message}'	  
 	  })
 	})	
 };
 
+const getItemsFromDatabaseByID = (itemId, response) => {
+    const ref = admin.database().ref(`/notes/${itemId}`);
+	ref.on('value', snapshot => {
+		let items = snapshot.val();
+		response.send(items);
+	});	
+};
+
 exports.helloWorld = functions.https.onRequest((request, response) => {
-  response.send("Hello from a Mai Database! Now implement get request");
+  response.send("Hello from a Mai Database! This project is developed for Agoda interview take-home test");
 });
 
-exports.api = functions.https.onRequest((req, res) => {
-  return cors(req, res, () => {
+exports.api = functions.https.onRequest((request, response) => {
+  return cors(request, response, () => {
 	//a. POST /api/notes in order to create a note
-	if(req.method == 'POST') {
+	if(request.method == 'POST') {
 		//Create Note object
 		const note = {
-			title: req.body.title,
-			body:  req.body.body
+			title: request.body.title,
+			body:  request.body.body
 		}
 		database.push(note);
 		
 		return database.on('value', (snapshot) => {
-		  res.status(200).json({ message: "POST request is complete with status(200)"});
+		  response.status(200).json({ message: "POST request is complete with status(200)"});
 		}, (error) => {
-		  res.status(error.code).json({
+		  response.status(error.code).json({
 			message: 'Something went wrong. ${error.message}'	  
 		  })
 		})
 		
-	//b. GET /api/notes in order to get all notes
-	} else if (req.method == 'GET') {
-		getItemsFromDatabase(res);
+	} else if (request.method == 'GET') {
+		
+		if (request.param('id') != null) {
+			var id = request.param('id');
+			//c. GET /api/notes/{id} in order to get one note by {id}
+			getItemsFromDatabaseByID (id, response);
+		} else {
+			//b. GET /api/notes in order to get all notes
+			getItemsFromDatabase(response);
+		}
 	} else {
       	return res.status(401).json({
         	message: 'Other types of request are not allowed'
