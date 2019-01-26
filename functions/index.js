@@ -29,18 +29,27 @@ const getItemsFromDatabase = (response) => {
 
 const getItemsFromDatabaseByID = (itemId, response) => {
     const ref = admin.database().ref(`/notes/${itemId}`);
-	ref.on('value', snapshot => {
-		let items = snapshot.val();
-		response.send(items);
-	});	
+    ref.on('value', (snapshot) => {
+	    let items = snapshot.val();
+		if (items != null) {
+			response.send(items);
+		} else {
+			response.send("This id is invalid. Please use the id that exist in the database");
+		}
+	}, (error) => {
+    	response.status(error.code).json({
+		message: 'Something went wrong. ${error.message}'	  
+		})
+	})	
 };
 
 const putItemsToDatabase = (itemId, request,response) => {
     const ref = admin.database().ref(`/notes/${itemId}`);
 	//Create Note object
+	
     const note = {
-		title: request.body.title,
-		body:  request.body.body
+		title: request.param('title'),
+		body:  request.param('body')
 	}
 	ref.set(note);
 	response.status(200).json({ message:"PUT Process is complete! please call GET?id=" + itemId + " to see the new note"});
@@ -54,11 +63,11 @@ exports.api = functions.https.onRequest((request, response) => {
   return cors(request, response, () => {
 	//a. POST /api/notes in order to create a note
 	if(request.method == 'POST') {
-		console.log('POST process!');
+		
 		//Create Note object
 		const note = {
-			title: request.body.title,
-			body:  request.body.body
+				title: request.body.title,
+				body:  request.body.body
 		}
 		database.push(note);
 		
@@ -70,14 +79,7 @@ exports.api = functions.https.onRequest((request, response) => {
 		  })
 		})
 		
-	} else if (request.method == 'PUT') {
-		//d.PUT /api/notes/{id} in order to update one note by {id}
-		if (request.param('id') != null) {
-			var id = request.param('id');
-			putItemsToDatabase(id, request, response);
-		}
 	} else if (request.method == 'GET') {
-		console.log('GET process!');
 		if (request.param('id') != null) {
 			var id = request.param('id');
 			//c. GET /api/notes/{id} in order to get one note by {id}
@@ -86,8 +88,13 @@ exports.api = functions.https.onRequest((request, response) => {
 			//b. GET /api/notes in order to get all notes
 			getItemsFromDatabase(response);
 		}
+	}  else if (request.method == 'PUT') {
+		//d.PUT /api/notes/{id} in order to update one note by {id}
+		if (request.param('id') != null) {
+			var id = request.param('id');
+			putItemsToDatabase(id, request, response);
+		}
 	} else {
-		console.log('ELSE!');
 		//Handle other request type
       	return response.status(401).json({
         	message: 'Other types of request are not allowed'
