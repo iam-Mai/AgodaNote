@@ -7,7 +7,7 @@ import renderHtml from 'react-render-html';
 import { Button } from 'reactstrap';
 
 //Ref: https://css-tricks.com/intro-firebase-react/
-//Ref2: https://blog.usejournal.com/build-a-serverless-full-stack-app-using-firebase-cloud-functions-81afe34a64fc
+
 const InputStyle = {
 			marginTop: '10px',
 			maxHeight:'75px',
