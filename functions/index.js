@@ -35,6 +35,17 @@ const getItemsFromDatabaseByID = (itemId, response) => {
 	});	
 };
 
+const putItemsToDatabase = (itemId, request,response) => {
+    const ref = admin.database().ref(`/notes/${itemId}`);
+	//Create Note object
+    const note = {
+		title: request.body.title,
+		body:  request.body.body
+	}
+	ref.set(note);
+	response.status(200).json({ message:"PUT Process is complete! please call GET?id=" + itemId + " to see the new note"});
+};
+
 exports.helloWorld = functions.https.onRequest((request, response) => {
   response.send("Hello from a Mai Database! This project is developed for Agoda interview take-home test");
 });
@@ -43,6 +54,7 @@ exports.api = functions.https.onRequest((request, response) => {
   return cors(request, response, () => {
 	//a. POST /api/notes in order to create a note
 	if(request.method == 'POST') {
+		console.log('POST process!');
 		//Create Note object
 		const note = {
 			title: request.body.title,
@@ -51,15 +63,21 @@ exports.api = functions.https.onRequest((request, response) => {
 		database.push(note);
 		
 		return database.on('value', (snapshot) => {
-		  response.status(200).json({ message: "POST request is complete with status(200)"});
+		  response.status(200).json({ message: "POST request is complete"});
 		}, (error) => {
 		  response.status(error.code).json({
 			message: 'Something went wrong. ${error.message}'	  
 		  })
 		})
 		
+	} else if (request.method == 'PUT') {
+		//d.PUT /api/notes/{id} in order to update one note by {id}
+		if (request.param('id') != null) {
+			var id = request.param('id');
+			putItemsToDatabase(id, request, response);
+		}
 	} else if (request.method == 'GET') {
-		
+		console.log('GET process!');
 		if (request.param('id') != null) {
 			var id = request.param('id');
 			//c. GET /api/notes/{id} in order to get one note by {id}
@@ -69,7 +87,9 @@ exports.api = functions.https.onRequest((request, response) => {
 			getItemsFromDatabase(response);
 		}
 	} else {
-      	return res.status(401).json({
+		console.log('ELSE!');
+		//Handle other request type
+      	return response.status(401).json({
         	message: 'Other types of request are not allowed'
       	})
     }
