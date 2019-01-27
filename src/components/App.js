@@ -132,13 +132,6 @@ class App extends Component {
 		}
 	}
 	
-	renderNotesEditView(e) {
-		const note = {
-			title: this.state.title,
-			body: this.state.body
-		}
-	}
-	
 	goToEdit (note) {
 		this.setState({
 			title : note.title,
@@ -151,10 +144,11 @@ class App extends Component {
 	}
 		
 	changeCancle() {
-		this.state.isCancle = true
-		this.handleSubmit()
+		this.setState({
+			isCancle: true
+		}, () => this.handleSubmit());	
 	}
-	//onClick={() => this.changeCancle()}
+
 	cancleButton() {
 		if(this.state.isInEditMode) {	
 		return (
@@ -187,7 +181,19 @@ class App extends Component {
 	}
 	
 	renderNotes() {
-		return this.state.isInEditMode ? this.renderNotesEditView() : this.renderNotesDefaultView()
+		return _.map(this.state.notes, (note, key) => {
+			return (
+			<div key={note.id} style={{marginTop: 150}}>
+				<h2 style={{fontWeight: 'bold'}}>{note.title}</h2>
+				<div>{renderHtml(note.body)}</div>
+				<div className="text-right" style={{padding:'15px'}}>
+					<Button color="info" onClick = {() => this.goToEdit(note)}>Edit</Button>{''}
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<Button color="danger"  onClick={() => this.removeItem(note.id)}>Delete</Button>{' '}
+				</div>
+			</div>
+			)
+		});	
 	}
  
   render() {
