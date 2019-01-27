@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/BENote-app/precache-manifest.d98844e7a2d5230f83fa5ff9827eecf1.js"
+  "/AgodaNote/precache-manifest.7b03bff7b775623d94815f856e5ee594.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("/BENote-app/index.html", {
+workbox.routing.registerNavigationRoute("/AgodaNote/index.html", {
   
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });

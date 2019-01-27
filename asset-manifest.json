@@ -1,15 +1,15 @@
 {
-  "main.css": "/BENote-app/static/css/main.d7d1c535.chunk.css",
-  "main.js": "/BENote-app/static/js/main.194f2ee5.chunk.js",
-  "main.js.map": "/BENote-app/static/js/main.194f2ee5.chunk.js.map",
-  "static/css/1.0ae6b27f.chunk.css": "/BENote-app/static/css/1.0ae6b27f.chunk.css",
-  "static/js/1.8c6b15bc.chunk.js": "/BENote-app/static/js/1.8c6b15bc.chunk.js",
-  "static/js/1.8c6b15bc.chunk.js.map": "/BENote-app/static/js/1.8c6b15bc.chunk.js.map",
-  "runtime~main.js": "/BENote-app/static/js/runtime~main.22cb745b.js",
-  "runtime~main.js.map": "/BENote-app/static/js/runtime~main.22cb745b.js.map",
-  "static/css/1.0ae6b27f.chunk.css.map": "/BENote-app/static/css/1.0ae6b27f.chunk.css.map",
-  "static/css/main.d7d1c535.chunk.css.map": "/BENote-app/static/css/main.d7d1c535.chunk.css.map",
-  "index.html": "/BENote-app/index.html",
-  "precache-manifest.d98844e7a2d5230f83fa5ff9827eecf1.js": "/BENote-app/precache-manifest.d98844e7a2d5230f83fa5ff9827eecf1.js",
-  "service-worker.js": "/BENote-app/service-worker.js"
+  "main.css": "/AgodaNote/static/css/main.d7d1c535.chunk.css",
+  "main.js": "/AgodaNote/static/js/main.6684549a.chunk.js",
+  "main.js.map": "/AgodaNote/static/js/main.6684549a.chunk.js.map",
+  "static/css/1.0ae6b27f.chunk.css": "/AgodaNote/static/css/1.0ae6b27f.chunk.css",
+  "static/js/1.f5041ab7.chunk.js": "/AgodaNote/static/js/1.f5041ab7.chunk.js",
+  "static/js/1.f5041ab7.chunk.js.map": "/AgodaNote/static/js/1.f5041ab7.chunk.js.map",
+  "runtime~main.js": "/AgodaNote/static/js/runtime~main.a36f5ef0.js",
+  "runtime~main.js.map": "/AgodaNote/static/js/runtime~main.a36f5ef0.js.map",
+  "static/css/1.0ae6b27f.chunk.css.map": "/AgodaNote/static/css/1.0ae6b27f.chunk.css.map",
+  "static/css/main.d7d1c535.chunk.css.map": "/AgodaNote/static/css/main.d7d1c535.chunk.css.map",
+  "index.html": "/AgodaNote/index.html",
+  "precache-manifest.7b03bff7b775623d94815f856e5ee594.js": "/AgodaNote/precache-manifest.7b03bff7b775623d94815f856e5ee594.js",
+  "service-worker.js": "/AgodaNote/service-worker.js"
 }
