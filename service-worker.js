@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/iam-Mai/BENote-app.git/precache-manifest.e066d4c49b63f25d8cb2b3661fe6db76.js"
+  "/BENote-app/precache-manifest.d98844e7a2d5230f83fa5ff9827eecf1.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("/iam-Mai/BENote-app.git/index.html", {
+workbox.routing.registerNavigationRoute("/BENote-app/index.html", {
   
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });
