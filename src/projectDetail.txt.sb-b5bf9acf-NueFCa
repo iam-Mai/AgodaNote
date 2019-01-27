@@ -1,0 +1,35 @@
+This project developed by Sasithorn Hannarong for the Home Test for Graduate BE Engineer
+
+**client-side**
+A client-side part which is run in the web browser. The code is in src/components/App.js
+This part is implemented using React JavaScript library along with other modules:
+1.	Create one or more notes.
+2.	View and edit an existing note.
+3.	List all notes that have been created
+
+**server-side**
+The code is in functions/index.js
+The api for this web is: https://us-central1-agodanote.cloudfunctions.net/api
+The API can expose these HTTP end points:
+a.	POST /api/notes in order to create a note
+You can POST new note by passing key and value from body or Params. 
+My POST api requires 2 key which are title and body.
+
+send from body: 
+If send from POSTMAN, select body then select x-www-form-urlencoded and pass 2 keys: [{"key":"title","value":"TestTitle","description":"","type":"text","enabled":true},{"key":"body","value":"TestBody","description":"","type":"text","enabled":true}]
+
+https://us-central1-agodanote.cloudfunctions.net/api?title=TestTitle&body=TestBody
+
+
+b.	GET /api/notes in order to get all notes
+
+c.	GET /api/notes/{id} in order to get one note by {id}
+
+d.	PUT /api/notes/{id} in order to update one note by {id}
+
+
+3.	A persistent storage which can any database or a file system.
+
+
+
+https://us-central1-agodanote.cloudfunctions.net/api/get?id=-LX7p1vMxaIiK2qGwsut
